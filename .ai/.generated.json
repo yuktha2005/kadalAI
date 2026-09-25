@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "path": ".claude/rules/ai-config.md",
+      "providers": [
+        "claude"
+      ],
+      "source": "instructions/ai-config",
+      "hash": "sha256:206c73f95e1da64995d4b6e453923428b13187cecd0efae3513ee2d79b5efb3e",
+      "ownership": "managed",
+      "extension": null,
+      "executable": false
+    },
+    {
+      "path": ".github/copilot-instructions.md",
+      "providers": [
+        "copilot"
+      ],
+      "source": null,
+      "hash": "sha256:b0a9c62c84864f883efabe251039ad07a47733da9b0501cbb644f3cc7b6b7ee5",
+      "ownership": "managed",
+      "extension": null,
+      "executable": false
+    },
+    {
+      "path": "AGENTS.md",
+      "providers": [
+        "codex",
+        "opencode"
+      ],
+      "source": null,
+      "hash": "sha256:b0a9c62c84864f883efabe251039ad07a47733da9b0501cbb644f3cc7b6b7ee5",
+      "ownership": "managed",
+      "extension": null,
+      "executable": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "short_name": "Kadal AI",
+  "name": "Kadal AI - (Spatio-temporal Analytics Gateway for Aquatic Resources)",
+  "icons": [
+    {
+      "src": "Gemini_Generated_Image_2cpwvo2cpwvo2cpw-removebg-preview.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Gemini_Generated_Image_2cpwvo2cpwvo2cpw-removebg-preview.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0a1929",
+  "background_color": "#0a1929"
+}

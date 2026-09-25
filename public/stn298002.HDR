@@ -1,0 +1,86 @@
+* Sea-Bird SBE 9 Data File:
+* FileName = E:\ctddata\stn298002.dat
+* Software Version Seasave Win32 V 5.31
+* Temperature SN = 2881
+* Conductivity SN = 2504
+* Number of Bytes Per Scan = 18
+* Number of Voltage Words = 2
+* Number of Scans Averaged by the Deck Unit = 1
+* System UpLoad Time = Mar 29 2012 18:36:23
+** Ship:      FORV Kadal AI Sampada 
+** Cruise:    CR 297 
+** Station:    STN298002
+** Latitude:   20 46.152N
+** Longitude:  65 13.566E
+** Depth: 2659M
+# nquan = 10
+# nvalues = 1000                        
+# units = specified
+# name 0 = prDM: Pressure, Digiquartz [db]
+# name 1 = c0mS/cm: Conductivity [mS/cm]
+# name 2 = sbeox0ML/L: Oxygen, SBE 43 [ml/l]
+# name 3 = t090C: Temperature [ITS-90, deg C]
+# name 4 = xmiss: Beam Transmission, Chelsea/Seatech/Wetlab CStar [%]
+# name 5 = bat: Beam Attenuation, Chelsea/Seatech/Wetlab CStar [1/m]
+# name 6 = depSM: Depth [salt water, m], lat = 10
+# name 7 = sal00: Salinity [PSU]
+# name 8 = potemp090C: Potential Temperature [ITS-90, deg C]
+# name 9 = sigma-t00: Density [sigma-t, Kg/m^3 ]
+# span 0 =      3.017,   1010.147       
+# span 1 =  37.899528,  56.736783       
+# span 2 =    0.03359,    4.87376       
+# span 3 =     8.9074,    26.4777       
+# span 4 =    81.6323,    88.8609       
+# span 5 =     0.4724,     0.8119       
+# span 6 =      3.000,   1002.000       
+# span 7 =    35.4109,    36.5315       
+# span 8 =     8.7927,    26.4769       
+# span 9 =    24.0362,    27.4551       
+# interval = meters: 1                  
+# start_time = Mar 29 2012 18:36:23
+# bad_flag = -9.990e-29
+# sensor 0 = Frequency  0  temperature, 2881, 17-Jun-11
+# sensor 1 = Frequency  1  conductivity, 2504, 01-Jun-11, cpcor = -9.5700e-08
+# sensor 2 = Frequency  2  pressure, 43433, 21july2000
+# sensor 3 = Extrnl Volt  0  Oxygen, SBE, primary, 0527, 14-Jun-11p
+# sensor 4 = Extrnl Volt  2  transmissometer, primary, 01245
+# datcnv_date = Mar 29 2012 19:18:07, 5.31a
+# datcnv_in = e:\ctddata\stn298002.dat E:\ctddata\NPL1.con
+# datcnv_skipover = 0
+# wildedit_date = Mar 29 2012 19:18:11, 5.31a
+# wildedit_in = e:\ctddata\stn298002.cnv
+# wildedit_pass1_nstd = 2.0
+# wildedit_pass2_nstd = 20.0
+# wildedit_pass2_mindelta = 0.000e+000
+# wildedit_npoint = 100
+# wildedit_vars = prDM c0mS/cm sbeox0ML/L t090C xmiss bat
+# wildedit_excl_bad_scans = yes
+# alignctd_date = Mar 29 2012 19:18:17, 5.31a
+# alignctd_in = e:\ctddata\stn298002.cnv
+# alignctd_adv = sbeox0ML/L 2.000                                                                                                                                                                                                    
+# celltm_date = Mar 29 2012 19:18:23, 5.31a
+# celltm_in = e:\ctddata\stn298002.cnv
+# celltm_alpha = 0.0300, 0.0000
+# celltm_tau = 7.0000, 0.0000
+# celltm_temp_sensor_use_for_cond = primary, 
+# filter_date = Mar 29 2012 19:18:29, 5.31a
+# filter_in = e:\ctddata\stn298002.cnv
+# filter_low_pass_tc_A = 0.030
+# filter_low_pass_tc_B = 0.150
+# filter_low_pass_A_vars = c0mS/cm sbeox0ML/L t090C xmiss bat
+# filter_low_pass_B_vars = prDM
+# loopedit_date = Mar 29 2012 19:18:40, 5.31a
+# loopedit_in = e:\ctddata\stn298002.cnv
+# loopedit_percentMeanSpeed: minV = 0.250, ws = 300, percent = 5.00                    
+# loopedit_excl_bad_scans = yes
+# Derive_date = Mar 29 2012 19:18:49, 5.31a
+# Derive_in = e:\ctddata\stn298002.cnv E:\ctddata\NPL1.con
+# binavg_date = Mar 29 2012 19:18:57, 5.31a
+# binavg_in = e:\ctddata\stn298002.cnv
+# binavg_bintype = meters
+# binavg_binsize = 1
+# binavg_excl_bad_scans = yes
+# binavg_skipover = 0
+# binavg_surface_bin = no, min = 0.000, max = 0.000, value = 0.000
+# file_type = ascii
+*END*
