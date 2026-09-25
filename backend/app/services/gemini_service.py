@@ -4,11 +4,13 @@ from google.genai import types
 
 class GeminiService:
     def __init__(self):
-        # We need the API key from environment
         self.api_key = os.getenv("GEMINI_API_KEY")
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY environment variable is missing")
-        self.client = genai.Client(api_key=self.api_key)
+        self.client = genai.Client(
+            api_key=self.api_key,
+            http_options=types.HttpOptions(timeout=5.0)
+        )
 
     def embed_text(self, text: str) -> list[float]:
         response = self.client.models.embed_content(

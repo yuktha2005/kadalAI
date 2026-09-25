@@ -19,7 +19,7 @@ class ChromaService:
             metadata={"hnsw:space": "cosine"}
         )
 
-    def add_records(self, ids: List[str], documents: List[str], metadatas: List[Dict[str, Any]], embeddings: List[List[float]]):
+    def add_records(self, ids: List[str], documents: List[str], metadatas: List[Dict[str, Any]], embeddings: List[List[float]] = None):
         # Add in batches to avoid overwhelming the API or DB
         batch_size = 100
         for i in range(0, len(ids), batch_size):
@@ -27,29 +27,37 @@ class ChromaService:
             batch_ids = ids[i:end_idx]
             batch_documents = documents[i:end_idx]
             batch_metadatas = metadatas[i:end_idx]
-            batch_embeddings = embeddings[i:end_idx]
+            batch_embeddings = embeddings[i:end_idx] if embeddings is not None and len(embeddings) > 0 else None
             
             # stringify non-primitive metadata
             for meta in batch_metadatas:
-                for k, v in meta.items():
+                for k, v in list(meta.items()):
                     if v is None:
                         meta[k] = ""
                     elif isinstance(v, (dict, list)):
                         meta[k] = json.dumps(v)
             
-            self.collection.add(
-                ids=batch_ids,
-                documents=batch_documents,
-                metadatas=batch_metadatas,
-                embeddings=batch_embeddings
-            )
+            kwargs = {
+                "ids": batch_ids,
+                "documents": batch_documents,
+                "metadatas": batch_metadatas
+            }
+            if batch_embeddings is not None:
+                kwargs["embeddings"] = batch_embeddings
+                
+            self.collection.add(**kwargs)
 
-    def search(self, query_embeddings: List[List[float]], n_results: int = 10, where: Dict = None) -> Dict[str, Any]:
-        return self.collection.query(
-            query_embeddings=query_embeddings,
-            n_results=n_results,
-            where=where
-        )
+    def search(self, query_embeddings: List[List[float]] = None, query_texts: List[str] = None, n_results: int = 10, where: Dict = None) -> Dict[str, Any]:
+        kwargs = {"n_results": n_results}
+        if where:
+            kwargs["where"] = where
+        if query_embeddings is not None:
+            kwargs["query_embeddings"] = query_embeddings
+        elif query_texts is not None:
+            kwargs["query_texts"] = query_texts
+        else:
+            return {"ids": [[]], "metadatas": [[]], "documents": [[]]}
+        return self.collection.query(**kwargs)
 
     def get_records(self, limit: int = 10, where: Dict = None) -> Dict[str, Any]:
         kwargs = {"limit": limit}
