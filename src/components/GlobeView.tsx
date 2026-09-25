@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
-import { FiArrowLeft, FiFilter, FiPlus, FiActivity, FiTrendingUp, FiSearch, FiX, FiClock, FiDatabase, FiFileText, FiEdit2, FiTrash2, FiSave, FiPenTool, FiPause, FiPlay, FiSquare, FiCheck, FiRotateCcw, FiInfo, FiCpu, FiLayers, FiImage, FiCompass } from 'react-icons/fi';
+import { FiArrowLeft, FiFilter, FiPlus, FiActivity, FiTrendingUp, FiSearch, FiX, FiClock, FiDatabase, FiFileText, FiEdit2, FiTrash2, FiSave, FiPenTool, FiPause, FiPlay, FiSquare, FiCheck, FiRotateCcw, FiInfo, FiCpu, FiLayers, FiImage, FiCompass, FiMapPin } from 'react-icons/fi';
 import { Project, DataPoint } from '../App';
 import ReactGlobeComponent from './ReactGlobeComponent';
 import { Card, CardTitle, CardDescription, CardSkeletonContainer } from './ui/aceternityCards';
@@ -18,6 +18,7 @@ import speciesIdentificationService, { SpeciesIdentificationResponse } from '../
 import OceanDepthFilter, { OceanDepthZoneId, OCEAN_DEPTH_ZONES } from './ui/OceanDepthFilter';
 import AutonomousCopilotModal from './AutonomousCopilotModal';
 import { FutureClimateForecasterModal } from './FutureClimateForecasterModal';
+import { SpeciesBioInspectorModal } from './SpeciesBioInspectorModal';
 
 interface GlobeViewProps {
   selectedProject: Project | null;
@@ -79,6 +80,7 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
   const [selectedDepthZone, setSelectedDepthZone] = useState<OceanDepthZoneId>('all');
   const [showAutonomousCopilot, setShowAutonomousCopilot] = useState<boolean>(false);
   const [showFutureForecaster, setShowFutureForecaster] = useState<boolean>(false);
+  const [showSpeciesBioModal, setShowSpeciesBioModal] = useState<boolean>(false);
 
   // Add polygon vertex; if new point is close to the first point, auto-close
   const addPolygonVertex = (lat: number, lng: number) => {
@@ -935,6 +937,16 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
 
             {/* 3. Right Section (Wrapper) */}
             <div className="flex-1 flex justify-end items-center space-x-2.5">
+              <motion.button
+                onClick={() => setShowSpeciesBioModal(true)}
+                className="flex items-center space-x-2 px-3.5 py-2 bg-white hover:bg-[#EEF3F5] border border-[#0F766E]/40 text-[#0F766E] font-bold rounded-xl shadow-xs transition-all duration-150 text-xs cursor-pointer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                title="Inspect location coordinates (Bay of Bengal, Arabian Sea, etc.), species lifespan, IUCN status, and biological traits"
+              >
+                <FiMapPin className="w-4 h-4 text-[#0F766E]" />
+                <span>Locate & Species Bio</span>
+              </motion.button>
               <motion.button
                 onClick={() => setShowFutureForecaster(true)}
                 className="flex items-center space-x-2 px-3.5 py-2 bg-gradient-to-r from-[#0F766E] to-[#0A4D48] hover:brightness-110 text-white font-bold border border-[#0F766E] rounded-xl shadow-xs transition-all duration-150 text-xs cursor-pointer"
@@ -1873,6 +1885,14 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
         onClose={() => setShowFutureForecaster(false)}
         initialSpecies="Puerulus sewelli"
         initialWaterBody="Arabian Sea"
+      />
+
+      {/* Species Biological & Ocean Basin Location Inspector Modal */}
+      <SpeciesBioInspectorModal
+        isOpen={showSpeciesBioModal}
+        onClose={() => setShowSpeciesBioModal(false)}
+        initialSpecies="Guyanacaris keralam"
+        initialWaterBody="Bay of Bengal"
       />
     </div>
   );
