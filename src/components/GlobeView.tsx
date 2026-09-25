@@ -17,6 +17,7 @@ import geminiService from '../services/geminiService';
 import speciesIdentificationService, { SpeciesIdentificationResponse } from '../services/speciesIdentificationService';
 import OceanDepthFilter, { OceanDepthZoneId, OCEAN_DEPTH_ZONES } from './ui/OceanDepthFilter';
 import AutonomousCopilotModal from './AutonomousCopilotModal';
+import { FutureClimateForecasterModal } from './FutureClimateForecasterModal';
 
 interface GlobeViewProps {
   selectedProject: Project | null;
@@ -77,6 +78,7 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
   const [showPolygonInfo, setShowPolygonInfo] = useState(false);
   const [selectedDepthZone, setSelectedDepthZone] = useState<OceanDepthZoneId>('all');
   const [showAutonomousCopilot, setShowAutonomousCopilot] = useState<boolean>(false);
+  const [showFutureForecaster, setShowFutureForecaster] = useState<boolean>(false);
 
   // Add polygon vertex; if new point is close to the first point, auto-close
   const addPolygonVertex = (lat: number, lng: number) => {
@@ -933,6 +935,16 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
 
             {/* 3. Right Section (Wrapper) */}
             <div className="flex-1 flex justify-end items-center space-x-2.5">
+              <motion.button
+                onClick={() => setShowFutureForecaster(true)}
+                className="flex items-center space-x-2 px-3.5 py-2 bg-gradient-to-r from-[#0F766E] to-[#0A4D48] hover:brightness-110 text-white font-bold border border-[#0F766E] rounded-xl shadow-xs transition-all duration-150 text-xs cursor-pointer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                title="Predict future habitat suitability post-2027 based on CMIP6 ocean warming & OMZ shoaling models"
+              >
+                <FiCompass className="w-4 h-4 text-emerald-300" />
+                <span>Future Forecaster (2027+)</span>
+              </motion.button>
               <motion.button
                 onClick={() => setShowAutonomousCopilot(true)}
                 className="flex items-center space-x-2 px-3.5 py-2 bg-[#0F766E] hover:bg-[#0B5F58] text-white font-bold border border-[#0F766E] rounded-xl shadow-xs transition-all duration-150 text-xs"
@@ -1853,6 +1865,14 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
         onFocusGlobeCoordinates={(coords) => {
           console.log('Focusing globe coordinates:', coords);
         }}
+      />
+
+      {/* Post-2027 Marine Species & Climate Forecaster Modal */}
+      <FutureClimateForecasterModal
+        isOpen={showFutureForecaster}
+        onClose={() => setShowFutureForecaster(false)}
+        initialSpecies="Puerulus sewelli"
+        initialWaterBody="Arabian Sea"
       />
     </div>
   );
