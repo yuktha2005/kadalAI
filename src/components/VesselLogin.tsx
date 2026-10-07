@@ -9,7 +9,6 @@ import {
 } from '../services/vesselTelemetryService';
 import {
   fetchVesselTelemetryFiles,
-  fetchVesselTelemetryFilesByDate,
   getDatesWithUploads,
   VesselTelemetryFile
 } from '../services/vesselTelemetrySupabaseService';
@@ -19,7 +18,7 @@ interface VesselLoginProps {
   onBack: () => void;
 }
 
-interface QualityReport {
+export interface QualityReportData {
   summary?: {
     quality_status?: string;
     total_data_points?: number;
@@ -47,7 +46,7 @@ const VesselLogin: React.FC<VesselLoginProps> = ({ onBack }) => {
   } | null>(null);
   const [processedFiles, setProcessedFiles] = useState<VesselTelemetryFile[]>([]);
   const [isLoadingFiles, setIsLoadingFiles] = useState(false);
-  const [selectedReport, setSelectedReport] = useState<QualityReport | null>(null);
+  const [selectedReport, setSelectedReport] = useState<QualityReportData | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const collectionIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const dataBufferRef = useRef<TelemetryDataPoint[]>([]);
@@ -161,12 +160,6 @@ const VesselLogin: React.FC<VesselLoginProps> = ({ onBack }) => {
           type: 'success',
           message: `Data processed successfully! Quality Score: ${result.qualityReport.detailed_metrics?.overall_quality_score?.toFixed(1) || 'N/A'}%`
         });
-        
-        // Add to processed files list
-        const qualityReportWithFileName = result.qualityReport ? {
-          ...result.qualityReport,
-          file_name: result.processedFile || filename
-        } : null;
         
         // Refresh files from Supabase instead of adding locally
         // The file is already in Supabase from the processing engine

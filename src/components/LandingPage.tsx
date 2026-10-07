@@ -2,12 +2,17 @@ import React, { useEffect, useRef } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import WorldMap from './ui/world-map';
 
-const LandingPage: React.FC<{ onEnter: () => void; onVesselLogin: () => void; onLogout?: () => void; skipAnimations?: boolean }> = ({ onEnter, onVesselLogin, onLogout, skipAnimations = false }) => {
+const LandingPage: React.FC<{ 
+  onEnter: () => void; 
+  onVesselLogin: () => void; 
+  onLogout?: () => void; 
+  onSpeciesIntelligence?: () => void;
+  skipAnimations?: boolean 
+}> = ({ onEnter, onVesselLogin, onLogout, onSpeciesIntelligence, skipAnimations = false }) => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const vesselLoginRef = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
     if (skipAnimations) {
       // Skip animations - make everything visible immediately
@@ -133,6 +138,15 @@ const LandingPage: React.FC<{ onEnter: () => void; onVesselLogin: () => void; on
             style={{ transform: 'scale(0.9)', opacity: 0 }}
           >
             Enter Dashboard
+          </button>
+          <button
+            onClick={() => {
+              if (onSpeciesIntelligence) onSpeciesIntelligence();
+              else onEnter();
+            }}
+            className="w-full sm:w-auto px-8 py-3.5 bg-emerald-700/90 text-white hover:bg-emerald-800 font-bold text-sm rounded-xl shadow-sm transition-all duration-150 transform hover:-translate-y-0.5 active:scale-95"
+          >
+            🔬 Species Intelligence
           </button>
           <button
             ref={vesselLoginRef}

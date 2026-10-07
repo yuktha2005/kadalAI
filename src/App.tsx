@@ -10,6 +10,7 @@ import APIDocumentation from './components/APIDocumentation';
 import DataSourcePage from './components/DataSourcePage';
 import VesselLogin from './components/VesselLogin';
 import Login from './components/Login';
+import { SpeciesIntelligenceView } from './components/SpeciesIntelligence/SpeciesIntelligenceView';
 import './App.css';
 
 export interface Project {
@@ -51,6 +52,7 @@ function App() {
   // Initialize view based on current URL
   const getInitialView = () => {
     const path = window.location.pathname;
+    if (path === '/species-intelligence' || path === '/species' || path === '/species-profile') return 'species-intelligence';
     if (path === '/api-docs' || path === '/api-documentation') return 'api-docs';
     if (path === '/dashboard') return 'dashboard';
     if (path === '/data-sources') {
@@ -69,7 +71,7 @@ function App() {
     return 'landing';
   };
 
-  const [currentView, setCurrentView] = useState<'landing' | 'dashboard' | 'search' | 'globe' | 'api-docs' | 'data-sources' | 'vessel-login'>(getInitialView());
+  const [currentView, setCurrentView] = useState<'landing' | 'dashboard' | 'search' | 'globe' | 'api-docs' | 'data-sources' | 'vessel-login' | 'species-intelligence'>(getInitialView());
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showLoader, setShowLoader] = React.useState(false);
   const [searchResult, setSearchResult] = React.useState<SearchResultSummary | null>(null);
@@ -351,6 +353,10 @@ function App() {
           >
             <LandingPage 
               onEnter={() => setCurrentView('dashboard')} 
+              onSpeciesIntelligence={() => {
+                setCurrentView('species-intelligence');
+                window.history.pushState({}, '', '/species-intelligence');
+              }}
               onVesselLogin={() => setCurrentView('vessel-login')}
               onLogout={handleLogout}
               skipAnimations={instantTransition}
@@ -373,6 +379,10 @@ function App() {
                 }
               }}
               onNavigateToLanding={handleNavigateToLanding}
+              onNavigateToSpeciesIntelligence={() => {
+                setCurrentView('species-intelligence');
+                window.history.pushState({}, '', '/species-intelligence');
+              }}
             />
           </motion.div>
         ) : currentView === 'search' ? (
@@ -471,6 +481,21 @@ function App() {
               />
             </motion.div>
           )
+        ) : currentView === 'species-intelligence' ? (
+          <motion.div
+            key="species-intelligence"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <SpeciesIntelligenceView
+              onBackToDashboard={() => {
+                setCurrentView('dashboard');
+                window.history.pushState({}, '', '/dashboard');
+              }}
+            />
+          </motion.div>
         ) : currentView === 'vessel-login' ? (
           <motion.div
             key="vessel-login"

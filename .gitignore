@@ -36,3 +36,5 @@ backend/venv/
 backend/chroma_db/
 backend/chroma_data/
 backend/.env
+
+.vscode/

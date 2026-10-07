@@ -142,19 +142,6 @@ const APIDocumentation: React.FC<APIDocumentationProps> = ({
                 <FiHome className="w-3.5 h-3.5 text-[#0F766E]" />
                 <span>Home</span>
               </button>
-              
-              {/* Data Sources Link */}
-              {['principal_scientist', 'senior_scientist', 'scientist', 'junior_scientist'].includes(localStorage.getItem('Kadal AI:role') || '') && (
-                <a
-                  href="https://data-ingestion-frontend-Kadal AI.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg text-[#5B7280] hover:text-[#0F2A3A] hover:bg-white transition-all duration-150"
-                >
-                  <FiDatabase className="w-3.5 h-3.5 text-[#0F766E]" />
-                  <span>Data Sources</span>
-                </a>
-              )}
 
               <div className="flex items-center space-x-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-white text-[#0F766E] shadow-sm border border-[#D9E2E7]">
                 <FiCode className="w-3.5 h-3.5 text-[#0F766E]" />

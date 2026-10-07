@@ -952,10 +952,10 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
                 className="flex items-center space-x-2 px-3.5 py-2 bg-gradient-to-r from-[#0F766E] to-[#0A4D48] hover:brightness-110 text-white font-bold border border-[#0F766E] rounded-xl shadow-xs transition-all duration-150 text-xs cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                title="Predict future habitat suitability post-2027 based on CMIP6 ocean warming & OMZ shoaling models"
+                title="Kadal AI Marine Intelligence: Live Ocean Telemetry, Daily/Monthly Climatology, 2030 Future Projections & 13 Marine Hazards"
               >
                 <FiCompass className="w-4 h-4 text-emerald-300" />
-                <span>Future Forecaster (2027+)</span>
+                <span>Marine Intelligence (2027–2030)</span>
               </motion.button>
               <motion.button
                 onClick={() => setShowAutonomousCopilot(true)}
@@ -1270,8 +1270,20 @@ const GlobeView: React.FC<GlobeViewProps> = ({ selectedProject, onShowSearchResu
 
         {/* Center area spacing */}
         <div className="flex-1 relative z-0 pointer-events-none">
+          <div className="absolute inset-0 z-0 pointer-events-auto kadal-ai-main-globe">
+            <Suspense fallback={null}>
+              <ReactGlobeComponent 
+                dataPoints={filteredData} 
+                onDataPointClick={setHoveredPoint} 
+                onCameraDistanceChange={undefined}
+                isPolygonDrawingMode={isPolygonDrawingMode}
+                onPolygonVertexAdd={addPolygonVertex}
+                polygonVertices={polygonVertices}
+              />
+            </Suspense>
+          </div>
           {isLoading && (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full relative z-10 pointer-events-none">
               <div className="text-center bg-white/90 p-8 rounded-2xl border border-[#D9E2E7] shadow-paper">
                 <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#0F766E] mx-auto mb-3"></div>
                 <p className="text-sm font-semibold text-[#0F2A3A]">Streaming Oceanographic Records...</p>
